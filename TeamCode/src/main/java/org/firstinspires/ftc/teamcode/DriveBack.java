@@ -70,8 +70,16 @@ public class DriveBack extends OpMode {
             StrafeLeft2();
         }else if(gamepad1.right_trigger>0.2){
             StrafeRight2();
-        }else if(i==-1){
-            MecanumBack(gamepad1.right_stick_y,-gamepad1.left_stick_x,-gamepad1.left_stick_x);
+        }else if(gamepad1.left_bumper&&i==-1){
+            StrafeLeft3();
+        }else if (gamepad1.right_bumper&&i==-1){
+            StrafeRight3();
+        }else if (gamepad1.left_trigger>0.2&&i==-1){
+            StrafeLeft4();
+        }else if (gamepad1.right_trigger>0.2&&i==-1){
+            StrafeRight4();
+        } else if(i==-1){
+            MecanumBack(-gamepad1.right_stick_y,-gamepad1.right_stick_x,-gamepad1.left_stick_x);
         }else{
             Mecanums(gamepad1.right_stick_y,-gamepad1.right_stick_x,-gamepad1.left_stick_x);
         }
@@ -134,24 +142,48 @@ public class DriveBack extends OpMode {
         RightMotor.setPower(0);
     }
     void StrafeRight(){
-        ForRight.setPower(POWER);
-        ForLeft.setPower(POWER);
-        BackRight.setPower(-POWER);
-        BackLeft.setPower(-POWER);
-    }
-    void StrafeLeft(){
         ForRight.setPower(-POWER);
         ForLeft.setPower(-POWER);
         BackRight.setPower(POWER);
         BackLeft.setPower(POWER);
     }
+    void StrafeLeft(){
+        ForRight.setPower(POWER);
+        ForLeft.setPower(POWER);
+        BackRight.setPower(-POWER);
+        BackLeft.setPower(-POWER);
+    }
     void StrafeRight2(){
+        ForRight.setPower(-POWER2);
+        ForLeft.setPower(-POWER2);
+        BackRight.setPower(POWER2);
+        BackLeft.setPower(POWER2);
+    }
+    void StrafeLeft2(){
         ForRight.setPower(POWER2);
         ForLeft.setPower(POWER2);
         BackRight.setPower(-POWER2);
         BackLeft.setPower(-POWER2);
     }
-    void StrafeLeft2(){
+    void StrafeRight3(){
+        ForRight.setPower(-POWER);
+        ForLeft.setPower(-POWER);
+        BackRight.setPower(POWER);
+        BackLeft.setPower(POWER);
+    }
+    void StrafeLeft3(){
+        ForRight.setPower(POWER);
+        ForLeft.setPower(POWER);
+        BackRight.setPower(-POWER);
+        BackLeft.setPower(-POWER);
+    }
+    void StrafeRight4(){
+        ForRight.setPower(POWER2);
+        ForLeft.setPower(POWER2);
+        BackRight.setPower(-POWER2);
+        BackLeft.setPower(-POWER2);
+    }
+    void StrafeLeft4(){
         ForRight.setPower(-POWER2);
         ForLeft.setPower(-POWER2);
         BackRight.setPower(POWER2);
@@ -164,10 +196,10 @@ public class DriveBack extends OpMode {
         BackLeft.setPower((spin+y)/SLOWING-x);
     }
     void MecanumBack(double y,double x,double spin){
-        ForRight.setPower((spin+y)/SLOWING-x);
-        ForLeft.setPower((spin-y)/SLOWING-x);
-        BackRight.setPower((spin+y)/SLOWING+x);
-        BackLeft.setPower((spin-y)/SLOWING+x);
+        ForRight.setPower((-spin+y)/-SLOWING-x);
+        ForLeft.setPower((-spin-y)/-SLOWING-x);
+        BackRight.setPower((-spin+y)/-SLOWING+x);
+        BackLeft.setPower((-spin-y)/-SLOWING+x);
     }
     void Down(){
         Servo1.setPosition(0);
