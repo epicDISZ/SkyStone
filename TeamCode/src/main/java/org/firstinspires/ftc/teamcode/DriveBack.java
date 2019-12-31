@@ -142,52 +142,52 @@ public class DriveBack extends OpMode {
         RightMotor.setPower(0);
     }
     void StrafeRight(){
-        ForRight.setPower(-POWER);
-        ForLeft.setPower(-POWER);
-        BackRight.setPower(POWER);
-        BackLeft.setPower(POWER);
+        ForRight.setPower(POWER);
+        ForLeft.setPower(POWER);
+        BackRight.setPower(-POWER);
+        BackLeft.setPower(-POWER);
     }
     void StrafeLeft(){
-        ForRight.setPower(POWER);
-        ForLeft.setPower(POWER);
-        BackRight.setPower(-POWER);
-        BackLeft.setPower(-POWER);
-    }
-    void StrafeRight2(){
-        ForRight.setPower(-POWER2);
-        ForLeft.setPower(-POWER2);
-        BackRight.setPower(POWER2);
-        BackLeft.setPower(POWER2);
-    }
-    void StrafeLeft2(){
-        ForRight.setPower(POWER2);
-        ForLeft.setPower(POWER2);
-        BackRight.setPower(-POWER2);
-        BackLeft.setPower(-POWER2);
-    }
-    void StrafeRight3(){
         ForRight.setPower(-POWER);
         ForLeft.setPower(-POWER);
         BackRight.setPower(POWER);
         BackLeft.setPower(POWER);
     }
-    void StrafeLeft3(){
-        ForRight.setPower(POWER);
-        ForLeft.setPower(POWER);
-        BackRight.setPower(-POWER);
-        BackLeft.setPower(-POWER);
-    }
-    void StrafeRight4(){
+    void StrafeRight2(){
         ForRight.setPower(POWER2);
         ForLeft.setPower(POWER2);
         BackRight.setPower(-POWER2);
         BackLeft.setPower(-POWER2);
     }
-    void StrafeLeft4(){
+    void StrafeLeft2(){
         ForRight.setPower(-POWER2);
         ForLeft.setPower(-POWER2);
         BackRight.setPower(POWER2);
         BackLeft.setPower(POWER2);
+    }
+    void StrafeRight3(){
+        ForRight.setPower(POWER);
+        ForLeft.setPower(POWER);
+        BackRight.setPower(-POWER);
+        BackLeft.setPower(-POWER);
+    }
+    void StrafeLeft3(){
+        ForRight.setPower(-POWER);
+        ForLeft.setPower(-POWER);
+        BackRight.setPower(POWER);
+        BackLeft.setPower(POWER);
+    }
+    void StrafeRight4(){
+        ForRight.setPower(-POWER2);
+        ForLeft.setPower(-POWER2);
+        BackRight.setPower(POWER2);
+        BackLeft.setPower(POWER2);
+    }
+    void StrafeLeft4(){
+        ForRight.setPower(POWER2);
+        ForLeft.setPower(POWER2);
+        BackRight.setPower(-POWER2);
+        BackLeft.setPower(-POWER2);
     }
     void Mecanums(double y,double x,double spin){
         ForRight.setPower((spin-y)/SLOWING+x);
