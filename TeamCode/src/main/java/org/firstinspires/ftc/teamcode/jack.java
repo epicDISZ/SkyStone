@@ -22,10 +22,10 @@ public class jack extends LinearOpMode {
     private Servo Servo1;
     private Servo Servo2;
     private Servo Oner;
-    static final double     COUNTS_PER_MOTOR_REV    = 2240 ;
+    static final double     COUNTS_PER_MOTOR_REV    = 56 ;
     static final double     DRIVE_GEAR_REDUCTION    = 15 ;
     static final double     WHEEL_DIAMETER_MM       = 75 ;
-    static final double     COUNTS_PER_MM           = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_MM * 3.1415);
+    static final double     COUNTS_PER_MM           =  (WHEEL_DIAMETER_MM * 3.1415) / (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION);
     static final double     DRIVE_SPEED             = 0.6;
     static final double     TURN_SPEED              = 0.5;
 
