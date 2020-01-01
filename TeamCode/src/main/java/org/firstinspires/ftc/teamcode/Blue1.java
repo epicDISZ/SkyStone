@@ -1,4 +1,4 @@
-bpackage org.firstinspires.ftc.teamcode;
+/*bpackage org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -25,6 +25,7 @@ public class Blue1 extends AutoMain {
                 if (isMoving()) {
                     autoState = AutoState.intakeCube;
                 }
+
         }
     }
 
@@ -32,4 +33,4 @@ public class Blue1 extends AutoMain {
         drive(1000);
         strafe(false, cubePosition.value);
     }
-}
+}*/

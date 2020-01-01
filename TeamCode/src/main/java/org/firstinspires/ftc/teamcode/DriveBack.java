@@ -28,6 +28,8 @@ public class DriveBack extends OpMode {
     final static double SLOWING = 1.5;
     final static double POWER = 0.3;
     final static double POWER2 = 1;
+    final static double EMAX = 100000000;
+    final static double EMIN = 0;
     @Override
     public void init() {
         ForRight = hardwareMap.get(DcMotor.class,"ForRight");
@@ -50,9 +52,16 @@ public class DriveBack extends OpMode {
         ForLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        LeftE.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RightE.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        LeftE.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        RightE.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
     @Override
     public void loop() {
+        telemetry.update();
+        telemetry.addData("ER",RightE.getCurrentPosition());
+        telemetry.addData("EL",LeftE.getCurrentPosition());
         if(gamepad1.dpad_left){
             i=-1;
         }else if(gamepad1.dpad_right){
@@ -110,9 +119,11 @@ public class DriveBack extends OpMode {
             Graple.setPosition(1);
         }else{
             Graple.setPosition(0.5);
-        }if(f==-1) {
+        }if(f==-1&&(EMIN < (RightE.getCurrentPosition()+LeftE.getCurrentPosition())/2 && gamepad2.left_stick_y > 0) ||
+                ((RightE.getCurrentPosition()+LeftE.getCurrentPosition())/2 < EMAX && gamepad2.left_stick_y < 0)) {
             LinearSlow(-gamepad2.right_stick_y);
-        }else{
+        }else if((EMIN < (RightE.getCurrentPosition()+LeftE.getCurrentPosition())/2 && gamepad2.left_stick_y > 0) ||
+                ((RightE.getCurrentPosition()+LeftE.getCurrentPosition())/2 < EMAX && gamepad2.left_stick_y < 0)){
             LinearFast(-gamepad2.right_stick_y);
         }
         if (gamepad2.left_trigger>0.2){
@@ -122,6 +133,7 @@ public class DriveBack extends OpMode {
         }else{
             OnerStatic();
         }
+
         telemetry.addData("ModeMotor",i);
         telemetry.addData("ModeLinear",f);
         telemetry.addData("ForRight",ForRight.getCurrentPosition());
