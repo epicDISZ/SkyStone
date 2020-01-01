@@ -8,7 +8,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaBase;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaSkyStone;
 
-@Disabled
+//@Disabled
 @TeleOp(name = "vuforia example",group = "Iterative Opmode")
 public class vuforiaExample extends LinearOpMode {
     private VuforiaSkyStone vuforiaSkyStone;

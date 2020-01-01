@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.Range;
 
 //@Disabled
 @TeleOp(name = "DriveBack",group = "Iterative Opmode")
@@ -28,8 +29,8 @@ public class DriveBack extends OpMode {
     final static double SLOWING = 1.5;
     final static double POWER = 0.3;
     final static double POWER2 = 1;
-    final static double EMAX = 100000000;
-    final static double EMIN = 0;
+    final static double EMAX = 1040;
+    final static double EMIN = 50;
     @Override
     public void init() {
         ForRight = hardwareMap.get(DcMotor.class,"ForRight");
@@ -46,6 +47,7 @@ public class DriveBack extends OpMode {
         Servo2=hardwareMap.get(Servo.class,"Servo2");
         Oner=hardwareMap.get(Servo.class,"Oner");
         LeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        LeftE.setDirection(DcMotorSimple.Direction.REVERSE);
         LeftE.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RightE.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         ForRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -62,6 +64,7 @@ public class DriveBack extends OpMode {
         telemetry.update();
         telemetry.addData("ER",RightE.getCurrentPosition());
         telemetry.addData("EL",LeftE.getCurrentPosition());
+        telemetry.addData("ME",(RightE.getCurrentPosition()+LeftE.getCurrentPosition())/2);
         if(gamepad1.dpad_left){
             i=-1;
         }else if(gamepad1.dpad_right){
@@ -119,12 +122,13 @@ public class DriveBack extends OpMode {
             Graple.setPosition(1);
         }else{
             Graple.setPosition(0.5);
-        }if(f==-1&&(EMIN < (RightE.getCurrentPosition()+LeftE.getCurrentPosition())/2 && gamepad2.left_stick_y > 0) ||
-                ((RightE.getCurrentPosition()+LeftE.getCurrentPosition())/2 < EMAX && gamepad2.left_stick_y < 0)) {
+        }if(f==-1 && ((RightE.getCurrentPosition()+LeftE.getCurrentPosition())/2 >= EMIN && -gamepad2.right_stick_y<-0.111) || ((RightE.getCurrentPosition()+LeftE.getCurrentPosition())/2 <= EMAX && -gamepad2.right_stick_y>0.222)) {
             LinearSlow(-gamepad2.right_stick_y);
-        }else if((EMIN < (RightE.getCurrentPosition()+LeftE.getCurrentPosition())/2 && gamepad2.left_stick_y > 0) ||
-                ((RightE.getCurrentPosition()+LeftE.getCurrentPosition())/2 < EMAX && gamepad2.left_stick_y < 0)){
+        }else if(((RightE.getCurrentPosition()+LeftE.getCurrentPosition())/2 >= EMIN && -gamepad2.right_stick_y<-0.111) || ((RightE.getCurrentPosition()+LeftE.getCurrentPosition())/2 <= EMAX && -gamepad2.right_stick_y>0.222)){
             LinearFast(-gamepad2.right_stick_y);
+        }else{
+            RightE.setPower(0);
+            LeftE.setPower(0);
         }
         if (gamepad2.left_trigger>0.2){
             OnerOut();
@@ -133,7 +137,6 @@ public class DriveBack extends OpMode {
         }else{
             OnerStatic();
         }
-
         telemetry.addData("ModeMotor",i);
         telemetry.addData("ModeLinear",f);
         telemetry.addData("ForRight",ForRight.getCurrentPosition());
@@ -226,8 +229,8 @@ public class DriveBack extends OpMode {
         Servo2.setPosition(0.5);
     }
     void LinearFast(double y){
-        RightE.setPower(y);
-        LeftE.setPower(y);
+        RightE.setPower(y*2);
+        LeftE.setPower(y*2);
     }
     void LinearSlow(double y){
         RightE.setPower(y/2);

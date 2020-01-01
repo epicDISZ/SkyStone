@@ -60,17 +60,29 @@ public class jack extends LinearOpMode {
         BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        ForRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        ForLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        BackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        BackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+      ForRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+      ForLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+      BackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+      BackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        ForRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        ForLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         telemetry.update();
         waitForStart();
 
-        EncodersControll(DRIVE_SPEED,-300,-300);
+        EncodersControl(DRIVE_SPEED,-300,-300);
 
+        while (opModeIsActive()) {
+            telemetry.addData("ForRight",ForRight.getCurrentPosition());
+            telemetry.addData("ForLeft",ForLeft.getCurrentPosition());
+            telemetry.addData("BackRight",BackRight.getCurrentPosition());
+            telemetry.addData("BackLeft",BackLeft.getCurrentPosition());
+            telemetry.update();
+        }
     }
-    public void EncodersControll(double speed, double leftMM, double rightMM){
+    public void EncodersControl(double speed, double leftMM, double rightMM){
         int newTargetForRight;
         int newTargetForLeft;
         int newTargetBackRight;
@@ -93,21 +105,22 @@ public class jack extends LinearOpMode {
             BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             runtime.reset();
-
             ForRight.setPower(Math.abs(speed));
             ForLeft.setPower(Math.abs(speed));
             BackRight.setPower(Math.abs(speed));
             BackLeft.setPower(Math.abs(speed));
+if (ForLeft.isBusy()&&ForLeft.isBusy()&&BackRight.isBusy()&&BackLeft.isBusy()) {
+    ForRight.setPower(0);
+    ForLeft.setPower(0);
+    BackRight.setPower(0);
+    BackLeft.setPower(0);
 
-            ForRight.setPower(0);
-            ForLeft.setPower(0);
-            BackRight.setPower(0);
-            BackLeft.setPower(0);
-
-            ForRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            ForLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            BackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            BackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    ForRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    ForLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    BackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    BackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+}
+}
         }
     }
-}
+
