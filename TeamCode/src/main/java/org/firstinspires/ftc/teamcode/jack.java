@@ -109,18 +109,7 @@ public class jack extends LinearOpMode {
             ForLeft.setPower(Math.abs(speed));
             BackRight.setPower(Math.abs(speed));
             BackLeft.setPower(Math.abs(speed));
-if (ForLeft.isBusy()&&ForLeft.isBusy()&&BackRight.isBusy()&&BackLeft.isBusy()) {
-    ForRight.setPower(0);
-    ForLeft.setPower(0);
-    BackRight.setPower(0);
-    BackLeft.setPower(0);
-
-    ForRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    ForLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    BackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    BackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-}
-}
+        }
         }
     }
 
